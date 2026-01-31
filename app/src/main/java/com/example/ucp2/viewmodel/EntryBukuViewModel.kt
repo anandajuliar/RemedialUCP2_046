@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ucp2.repositori.RepositoriHotel
+import com.example.ucp2.repositori.RepositoriPerpustakaan
 import com.example.ucp2.room.Buku
 import com.example.ucp2.room.Kategori
 import kotlinx.coroutines.flow.SharingStarted
@@ -13,12 +13,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 
 
-class EntryBukuViewModel(private val repositoriHotel: RepositoriHotel) : ViewModel() {
+class EntryBukuViewModel(private val repositoriPerpustakaan: RepositoriPerpustakaan) : ViewModel() {
 
     var uiStateBuku by mutableStateOf(DetailBukuUiState())
         private set
 
-    val listKategori: StateFlow<List<Kategori>> = repositoriHotel.getAllTipe()
+    val listKategori: StateFlow<List<Kategori>> = repositoriPerpustakaan.getAllTipe()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
@@ -31,7 +31,7 @@ class EntryBukuViewModel(private val repositoriHotel: RepositoriHotel) : ViewMod
 
     suspend fun saveBuku() {
         if (validasiInput()) {
-            repositoriHotel.insertBuku(uiStateBuku.toBuku())
+            repositoriPerpustakaan.insertBuku(uiStateBuku.toBuku())
         }
     }
 

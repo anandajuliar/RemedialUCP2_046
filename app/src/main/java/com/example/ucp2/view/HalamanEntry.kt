@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp2.room.Kategori
 import com.example.ucp2.view.route.DestinasiEntry
-import com.example.ucp2.view.uicontroller.HotelAppTopAppBar
+import com.example.ucp2.view.uicontroller.PerpustakaanAppTopAppBar
 import com.example.ucp2.viewmodel.DetailBukuUiState
 import com.example.ucp2.viewmodel.EntryBukuViewModel
 import com.example.ucp2.viewmodel.PenyediaViewModel
@@ -53,7 +53,7 @@ fun HalamanEntry(
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            HotelAppTopAppBar(
+            PerpustakaanAppTopAppBar(
                 title = DestinasiEntry.titleRes,
                 canNavigateBack = true,
                 scrollBehavior = scrollBehavior,

@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp2.room.Kategori
-import com.example.ucp2.view.uicontroller.HotelAppTopAppBar
+import com.example.ucp2.view.uicontroller.PerpustakaanAppTopAppBar
 import com.example.ucp2.viewmodel.EntryTipeViewModel
 import com.example.ucp2.viewmodel.PenyediaViewModel
 import kotlinx.coroutines.launch
@@ -29,14 +29,12 @@ fun HalamanListTipe(
 ) {
     val listTipe by viewModel.tipeBukuList.collectAsState()
     val scope = rememberCoroutineScope()
-
-    // State untuk Dialog Hapus
     var showDialog by remember { mutableStateOf(false) }
     var selectedTipe by remember { mutableStateOf<Kategori?>(null) }
 
     Scaffold(
         topBar = {
-            HotelAppTopAppBar(
+            PerpustakaanAppTopAppBar(
                 title = "Daftar Kategori Buku",
                 canNavigateBack = true,
                 navigateUp = navigateBack
@@ -99,7 +97,7 @@ fun HalamanListTipe(
                     TextButton(
                         onClick = {
                             scope.launch {
-                                viewModel.deleteTipe(selectedTipe!!, hapusBukuJuga = true)
+                                viewModel.deleteTipe(selectedTipe!!, hapusBuku = true)
                                 showDialog = false
                             }
                         }
@@ -111,7 +109,7 @@ fun HalamanListTipe(
                     TextButton(
                         onClick = {
                             scope.launch {
-                                viewModel.deleteTipe(selectedTipe!!, hapusBukuJuga = false)
+                                viewModel.deleteTipe(selectedTipe!!, hapusBuku = false)
                                 showDialog = false
                             }
                         }

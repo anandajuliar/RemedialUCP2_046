@@ -11,14 +11,14 @@ object PenyediaViewModel {
 
         initializer {
             EntryBukuViewModel(
-                aplikasiHotel().container.repositoriHotel
+                aplikasiHotel().container.repositoriPerpustakaan
             )
         }
         initializer {
-            HomeViewModel(aplikasiHotel().container.repositoriHotel)
+            HomeViewModel(aplikasiHotel().container.repositoriPerpustakaan)
         }
         initializer {
-            EntryTipeViewModel(aplikasiHotel().container.repositoriHotel)
+            EntryTipeViewModel(aplikasiHotel().container.repositoriPerpustakaan)
         }
     }
 }

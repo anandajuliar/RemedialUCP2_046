@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [Kategori::class, Buku::class], version = 1, exportSchema = false)
 abstract class PerpustakaanDatabase : RoomDatabase() {
-    abstract fun hotelDao(): PerpustakaanDao
+    abstract fun perpustakaanDao(): PerpustakaanDao
 
     companion object {
         @Volatile

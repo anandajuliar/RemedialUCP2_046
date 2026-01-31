@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp2.room.BukuDenganKategori
 import com.example.ucp2.view.route.DestinasiHome
-import com.example.ucp2.view.uicontroller.HotelAppTopAppBar
+import com.example.ucp2.view.uicontroller.PerpustakaanAppTopAppBar
 import com.example.ucp2.viewmodel.HomeViewModel
 import com.example.ucp2.viewmodel.PenyediaViewModel
 
@@ -26,7 +26,6 @@ import com.example.ucp2.viewmodel.PenyediaViewModel
 fun HalamanHome(
     navigateToItemEntry: () -> Unit,
     navigateToTipeEntry: () -> Unit,
-    navigateBack: () -> Unit,
     onDetailClick: (Int) -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
@@ -37,7 +36,7 @@ fun HalamanHome(
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            HotelAppTopAppBar(
+            PerpustakaanAppTopAppBar(
                 title = DestinasiHome.titleRes,
                 canNavigateBack = false,
                 scrollBehavior = scrollBehavior

@@ -29,10 +29,7 @@ fun HostNavigasi(
         composable(DestinasiHome.route) {
             HalamanHome(
                 navigateToItemEntry = { navController.navigate(DestinasiEntry.route) },
-                navigateToTipeEntry = { navController.navigate(DestinasiListTipe.route) },
-                navigateBack = { /* Tidak ada back dari home */ },
-                onDetailClick = {
-                }
+                navigateToTipeEntry = { navController.navigate(DestinasiListTipe.route) }
             )
         }
 

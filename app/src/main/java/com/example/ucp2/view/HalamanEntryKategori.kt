@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp2.view.route.DestinasiEntryTipe
-import com.example.ucp2.view.uicontroller.HotelAppTopAppBar
+import com.example.ucp2.view.uicontroller.PerpustakaanAppTopAppBar
 import com.example.ucp2.viewmodel.EntryTipeViewModel
 import com.example.ucp2.viewmodel.PenyediaViewModel
 import kotlinx.coroutines.launch
@@ -23,7 +23,7 @@ fun HalamanEntryTipe(
     val scope = rememberCoroutineScope()
     Scaffold(
         topBar = {
-            HotelAppTopAppBar(
+            PerpustakaanAppTopAppBar(
                 title = DestinasiEntryTipe.titleRes,
                 canNavigateBack = true,
                 navigateUp = navigateBack

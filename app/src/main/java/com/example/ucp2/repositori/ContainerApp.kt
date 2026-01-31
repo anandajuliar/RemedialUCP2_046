@@ -4,11 +4,11 @@ import android.content.Context
 import com.example.ucp2.room.PerpustakaanDatabase
 
 interface AppContainer {
-    val repositoriHotel: RepositoriHotel
+    val repositoriPerpustakaan: RepositoriPerpustakaan
 }
 
 class ContainerDataApp(private val context: Context) : AppContainer {
-    override val repositoriHotel: RepositoriHotel by lazy {
-        OfflineRepositoriHotel(PerpustakaanDatabase.getDatabase(context).hotelDao())
+    override val repositoriPerpustakaan: RepositoriPerpustakaan by lazy {
+        OfflineRepositoriPerpustakaan(PerpustakaanDatabase.getDatabase(context).perpustakaanDao())
     }
 }

@@ -5,12 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ucp2.repositori.RepositoriHotel
+import com.example.ucp2.repositori.RepositoriPerpustakaan
 import com.example.ucp2.room.Kategori
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 
-class EntryTipeViewModel(private val repositoriHotel: RepositoriHotel) : ViewModel() {
+class EntryTipeViewModel(private val repositoriPerpustakaan: RepositoriPerpustakaan) : ViewModel() {
     var uiStateTipe by mutableStateOf(KategoriUiState())
         private set
 
@@ -20,7 +20,7 @@ class EntryTipeViewModel(private val repositoriHotel: RepositoriHotel) : ViewMod
 
     suspend fun saveTipe() {
         if (validasiInput()) {
-            repositoriHotel.insertTipe(uiStateTipe.toKategori())
+            repositoriPerpustakaan.insertTipe(uiStateTipe.toKategori())
         }
     }
 
@@ -28,11 +28,11 @@ class EntryTipeViewModel(private val repositoriHotel: RepositoriHotel) : ViewMod
         return uiStateTipe.namaKategori.isNotBlank() && uiStateTipe.deskripsi.isNotBlank()
     }
 
-    suspend fun deleteTipe(tipeBuku: Kategori, hapusBukuJuga: Boolean) {
-        repositoriHotel.deleteTipe(tipeBuku, hapusBukuJuga)
+    suspend fun deleteTipe(tipeBuku: Kategori, hapusBuku: Boolean) {
+        repositoriPerpustakaan.deleteTipe(tipeBuku, hapusBuku)
     }
 
-    val tipeBukuList = repositoriHotel.getAllTipe()
+    val tipeBukuList = repositoriPerpustakaan.getAllTipe()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
