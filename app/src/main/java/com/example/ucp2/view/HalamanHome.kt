@@ -1,0 +1,153 @@
+package com.example.ucp2.view
+
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.ucp2.room.KamarDenganTipe
+import com.example.ucp2.view.route.DestinasiHome
+import com.example.ucp2.view.uicontroller.HotelAppTopAppBar
+import com.example.ucp2.viewmodel.HomeViewModel
+import com.example.ucp2.viewmodel.PenyediaViewModel
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HalamanHome(
+    navigateToItemEntry: () -> Unit,
+    navigateToTipeEntry: () -> Unit,
+    navigateBack: () -> Unit,
+    onDetailClick: (Int) -> Unit = {},
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val homeUiState by viewModel.homeUiState.collectAsState()
+
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            HotelAppTopAppBar(
+                title = DestinasiHome.titleRes,
+                canNavigateBack = false,
+                scrollBehavior = scrollBehavior
+            )
+        },
+        floatingActionButton = {
+            Column(
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                ExtendedFloatingActionButton(
+                    onClick = navigateToTipeEntry,
+                    text = { Text("Tambah Tipe") },
+                    icon = { Icon(imageVector = Icons.Default.Add, contentDescription = null) },
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer
+                )
+
+                FloatingActionButton(
+                    onClick = navigateToItemEntry,
+                ) {
+                    Icon(imageVector = Icons.Default.Add, contentDescription = "Tambah Kamar")
+                }
+            }
+        }
+    ) { innerPadding ->
+        HomeStatus(
+            homeUiState = homeUiState.listKamar,
+            retryAction = {},
+            modifier = Modifier.padding(innerPadding),
+            onDetailClick = onDetailClick
+        )
+    }
+}
+
+@Composable
+fun HomeStatus(
+    homeUiState: List<KamarDenganTipe>,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDetailClick: (Int) -> Unit
+) {
+    if (homeUiState.isEmpty()) {
+        Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Text(text = "Tidak ada data kamar")
+        }
+    } else {
+        KamarLayout(
+            listKamar = homeUiState,
+            modifier = modifier,
+            onItemClick = { onDetailClick(it.kamar.idKamar) }
+        )
+    }
+}
+
+@Composable
+fun KamarLayout(
+    listKamar: List<KamarDenganTipe>,
+    modifier: Modifier = Modifier,
+    onItemClick: (KamarDenganTipe) -> Unit
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(listKamar) { kamar ->
+            KamarCard(
+                kamar = kamar,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onItemClick(kamar) }
+            )
+        }
+    }
+}
+
+@Composable
+fun KamarCard(
+    kamar: KamarDenganTipe,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier,
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = kamar.kamar.nomorKamar,
+                    style = MaterialTheme.typography.titleLarge,
+                )
+                Spacer(Modifier.weight(1f))
+                Text(
+                    text = kamar.namaTipe ?: "Tanpa Tipe",
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+            Text(
+                text = "Status: ${kamar.kamar.statusKamar}",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = "Kapasitas: ${kamar.kamar.kapasitas} orang",
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+    }
+}
