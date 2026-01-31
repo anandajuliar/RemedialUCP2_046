@@ -3,7 +3,7 @@ package com.example.ucp2.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ucp2.repositori.RepositoriHotel
-import com.example.ucp2.room.KamarDenganTipe
+import com.example.ucp2.room.BukuDenganKategori
 import kotlinx.coroutines.flow.*
 
 class HomeViewModel(private val repositoriHotel: RepositoriHotel) : ViewModel() {
@@ -12,9 +12,9 @@ class HomeViewModel(private val repositoriHotel: RepositoriHotel) : ViewModel() 
         private const val TIMEOUT_MILLIS = 5_000L
     }
 
-    val homeUiState: StateFlow<HomeUiState> = repositoriHotel.getAllKamar()
+    val homeUiState: StateFlow<HomeUiState> = repositoriHotel.getAllBuku()
         .filterNotNull()
-        .map { HomeUiState(listKamar = it) }
+        .map { HomeUiState(listBuku = it) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
@@ -23,5 +23,5 @@ class HomeViewModel(private val repositoriHotel: RepositoriHotel) : ViewModel() 
 }
 
 data class HomeUiState(
-    val listKamar: List<KamarDenganTipe> = listOf()
+    val listBuku: List<BukuDenganKategori> = listOf()
 )

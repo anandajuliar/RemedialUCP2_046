@@ -4,13 +4,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.ucp2.AplikasiHotel
+import com.example.ucp2.AplikasiPerpustakaan
 
 object PenyediaViewModel {
     val Factory = viewModelFactory {
 
         initializer {
-            EntryKamarViewModel(
+            EntryBukuViewModel(
                 aplikasiHotel().container.repositoriHotel
             )
         }
@@ -23,5 +23,5 @@ object PenyediaViewModel {
     }
 }
 
-fun CreationExtras.aplikasiHotel(): AplikasiHotel =
-    (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as AplikasiHotel)
+fun CreationExtras.aplikasiHotel(): AplikasiPerpustakaan =
+    (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as AplikasiPerpustakaan)

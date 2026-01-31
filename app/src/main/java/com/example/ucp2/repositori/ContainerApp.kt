@@ -1,7 +1,7 @@
 package com.example.ucp2.repositori
 
 import android.content.Context
-import com.example.ucp2.room.HotelDatabase
+import com.example.ucp2.room.PerpustakaanDatabase
 
 interface AppContainer {
     val repositoriHotel: RepositoriHotel
@@ -9,6 +9,6 @@ interface AppContainer {
 
 class ContainerDataApp(private val context: Context) : AppContainer {
     override val repositoriHotel: RepositoriHotel by lazy {
-        OfflineRepositoriHotel(HotelDatabase.getDatabase(context).hotelDao())
+        OfflineRepositoriHotel(PerpustakaanDatabase.getDatabase(context).hotelDao())
     }
 }

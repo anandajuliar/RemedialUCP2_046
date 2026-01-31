@@ -3,10 +3,10 @@ package com.example.ucp2.room
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "tipe_kamar")
-data class TipeKamar(
+@Entity(tableName = "tipe_buku")
+data class Kategori(
     @PrimaryKey(autoGenerate = true)
-    val idTipe: Int = 0,
-    val namaTipe: String,
+    val idKategori: Int = 0,
+    val namaKategori: String,
     val deskripsi: String
 )

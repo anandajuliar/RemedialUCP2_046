@@ -11,7 +11,6 @@ import com.example.ucp2.view.route.DestinasiEntryTipe
 import com.example.ucp2.view.uicontroller.HotelAppTopAppBar
 import com.example.ucp2.viewmodel.EntryTipeViewModel
 import com.example.ucp2.viewmodel.PenyediaViewModel
-import com.example.ucp2.viewmodel.TipeKamarUiState
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,9 +40,9 @@ fun HalamanEntryTipe(
             val uiState = viewModel.uiStateTipe
 
             OutlinedTextField(
-                value = uiState.namaTipe,
-                onValueChange = { viewModel.updateUiState(uiState.copy(namaTipe = it)) },
-                label = { Text("Nama Tipe (Ex: Deluxe)") },
+                value = uiState.namaKategori,
+                onValueChange = { viewModel.updateUiState(uiState.copy(namaKategori = it)) },
+                label = { Text("Nama Ketegori (Ex: Fiksi)") },
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -62,9 +61,9 @@ fun HalamanEntryTipe(
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
-                enabled = uiState.namaTipe.isNotBlank()
+                enabled = uiState.namaKategori.isNotBlank()
             ) {
-                Text("Simpan Tipe Kamar")
+                Text("Simpan Tipe Buku")
             }
         }
     }

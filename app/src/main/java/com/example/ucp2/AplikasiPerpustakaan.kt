@@ -4,7 +4,7 @@ import android.app.Application
 import com.example.ucp2.repositori.AppContainer
 import com.example.ucp2.repositori.ContainerDataApp
 
-class AplikasiHotel : Application() {
+class AplikasiPerpustakaan : Application() {
     lateinit var container: AppContainer
 
     override fun onCreate() {

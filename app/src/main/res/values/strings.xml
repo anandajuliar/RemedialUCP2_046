@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">ucp2</string>
-    <string name="deskripsi_no_item">Tidak ada data Kamar. \n(Mungkin belum ada input atau Pemesanaa terkait telah dihapus)</string>
+    <string name="deskripsi_no_item">Tidak ada data Buku. \n(Mungkin belum ada input atau Pemesanaa terkait telah dihapus)</string>
 
-    <string name="entry_kamar">Tambah Kamar</string>
+    <string name="entry_buku">Tambah Buku</string>
     <string name="nama">Nama</string>
-    <string name="fasilitas">Fasilitas Kamar</string>
-    <string name="kapasitas">Kpasitas</string>
+    <string name="fasilitas">Fasilitas Buku</string>
+    <string name="penulis">Kpasitas</string>
     <string name="tanggal">tanggal</string>
     <string name="pemesanan_helper">Pastikan ID pemesanan sudah ada di database kategori!</string>
 
@@ -24,8 +24,8 @@
     <string name="delete">Hapus</string>
     <string name="update">Update</string>
 
-    <string name="detail_kamatr">Detail Kamar</string>
-    <string name="edit_kamar">Edit Kamar</string>
+    <string name="detail_kamatr">Detail Buku</string>
+    <string name="edit_buku">Edit Buku</string>
 
     <string name="attention">Perhatian</string>
     <string name="tanya">Apakah anda yakin ingin menghapus data ini?</string>

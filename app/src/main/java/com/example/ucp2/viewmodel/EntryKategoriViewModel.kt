@@ -6,33 +6,33 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ucp2.repositori.RepositoriHotel
-import com.example.ucp2.room.TipeKamar
+import com.example.ucp2.room.Kategori
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 
 class EntryTipeViewModel(private val repositoriHotel: RepositoriHotel) : ViewModel() {
-    var uiStateTipe by mutableStateOf(TipeKamarUiState())
+    var uiStateTipe by mutableStateOf(KategoriUiState())
         private set
 
-    fun updateUiState(tipeUiState: TipeKamarUiState) {
+    fun updateUiState(tipeUiState: KategoriUiState) {
         uiStateTipe = tipeUiState
     }
 
     suspend fun saveTipe() {
         if (validasiInput()) {
-            repositoriHotel.insertTipe(uiStateTipe.toTipeKamar())
+            repositoriHotel.insertTipe(uiStateTipe.toKategori())
         }
     }
 
     private fun validasiInput(): Boolean {
-        return uiStateTipe.namaTipe.isNotBlank() && uiStateTipe.deskripsi.isNotBlank()
+        return uiStateTipe.namaKategori.isNotBlank() && uiStateTipe.deskripsi.isNotBlank()
     }
 
-    suspend fun deleteTipe(tipeKamar: TipeKamar, hapusKamarJuga: Boolean) {
-        repositoriHotel.deleteTipe(tipeKamar, hapusKamarJuga)
+    suspend fun deleteTipe(tipeBuku: Kategori, hapusBukuJuga: Boolean) {
+        repositoriHotel.deleteTipe(tipeBuku, hapusBukuJuga)
     }
 
-    val tipeKamarList = repositoriHotel.getAllTipe()
+    val tipeBukuList = repositoriHotel.getAllTipe()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
@@ -40,14 +40,14 @@ class EntryTipeViewModel(private val repositoriHotel: RepositoriHotel) : ViewMod
         )
 }
 
-data class TipeKamarUiState(
-    val idTipe: Int = 0,
-    val namaTipe: String = "",
+data class KategoriUiState(
+    val idKategori: Int = 0,
+    val namaKategori: String = "",
     val deskripsi: String = ""
 )
 
-fun TipeKamarUiState.toTipeKamar(): TipeKamar = TipeKamar(
-    idTipe = idTipe,
-    namaTipe = namaTipe,
+fun KategoriUiState.toKategori(): Kategori = Kategori(
+    idKategori = idKategori,
+    namaKategori = namaKategori,
     deskripsi = deskripsi
 )

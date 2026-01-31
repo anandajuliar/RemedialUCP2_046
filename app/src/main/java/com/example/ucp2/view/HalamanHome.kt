@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.ucp2.room.KamarDenganTipe
+import com.example.ucp2.room.BukuDenganKategori
 import com.example.ucp2.view.route.DestinasiHome
 import com.example.ucp2.view.uicontroller.HotelAppTopAppBar
 import com.example.ucp2.viewmodel.HomeViewModel
@@ -50,7 +50,7 @@ fun HalamanHome(
             ) {
                 ExtendedFloatingActionButton(
                     onClick = navigateToTipeEntry,
-                    text = { Text("Tambah Tipe") },
+                    text = { Text("Tambah Kategori") },
                     icon = { Icon(imageVector = Icons.Default.Add, contentDescription = null) },
                     containerColor = MaterialTheme.colorScheme.secondaryContainer
                 )
@@ -58,13 +58,13 @@ fun HalamanHome(
                 FloatingActionButton(
                     onClick = navigateToItemEntry,
                 ) {
-                    Icon(imageVector = Icons.Default.Add, contentDescription = "Tambah Kamar")
+                    Icon(imageVector = Icons.Default.Add, contentDescription = "Tambah Buku")
                 }
             }
         }
     ) { innerPadding ->
         HomeStatus(
-            homeUiState = homeUiState.listKamar,
+            homeUiState = homeUiState.listBuku,
             retryAction = {},
             modifier = Modifier.padding(innerPadding),
             onDetailClick = onDetailClick
@@ -74,49 +74,49 @@ fun HalamanHome(
 
 @Composable
 fun HomeStatus(
-    homeUiState: List<KamarDenganTipe>,
+    homeUiState: List<BukuDenganKategori>,
     retryAction: () -> Unit,
     modifier: Modifier = Modifier,
     onDetailClick: (Int) -> Unit
 ) {
     if (homeUiState.isEmpty()) {
         Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text(text = "Tidak ada data kamar")
+            Text(text = "Tidak ada data buku")
         }
     } else {
-        KamarLayout(
-            listKamar = homeUiState,
+        BukuLayout(
+            listBuku = homeUiState,
             modifier = modifier,
-            onItemClick = { onDetailClick(it.kamar.idKamar) }
+            onItemClick = { onDetailClick(it.buku.idBuku) }
         )
     }
 }
 
 @Composable
-fun KamarLayout(
-    listKamar: List<KamarDenganTipe>,
+fun BukuLayout(
+    listBuku: List<BukuDenganKategori>,
     modifier: Modifier = Modifier,
-    onItemClick: (KamarDenganTipe) -> Unit
+    onItemClick: (BukuDenganKategori) -> Unit
 ) {
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(listKamar) { kamar ->
-            KamarCard(
-                kamar = kamar,
+        items(listBuku) { buku ->
+            BukuCard(
+                buku = buku,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { onItemClick(kamar) }
+                    .clickable { onItemClick(buku) }
             )
         }
     }
 }
 
 @Composable
-fun KamarCard(
-    kamar: KamarDenganTipe,
+fun BukuCard(
+    buku: BukuDenganKategori,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -131,21 +131,21 @@ fun KamarCard(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = kamar.kamar.nomorKamar,
+                    text = buku.buku.nomorBuku,
                     style = MaterialTheme.typography.titleLarge,
                 )
                 Spacer(Modifier.weight(1f))
                 Text(
-                    text = kamar.namaTipe ?: "Tanpa Tipe",
+                    text = buku.namaKategori ?: "Tanpa Tipe",
                     style = MaterialTheme.typography.titleMedium
                 )
             }
             Text(
-                text = "Status: ${kamar.kamar.statusKamar}",
+                text = "Status: ${buku.buku.statusBuku}",
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "Kapasitas: ${kamar.kamar.kapasitas} orang",
+                text = "Penulis: ${buku.buku.penulis}",
                 style = MaterialTheme.typography.bodyMedium
             )
         }

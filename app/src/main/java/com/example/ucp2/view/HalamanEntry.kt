@@ -30,11 +30,11 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.ucp2.room.TipeKamar
+import com.example.ucp2.room.Kategori
 import com.example.ucp2.view.route.DestinasiEntry
 import com.example.ucp2.view.uicontroller.HotelAppTopAppBar
-import com.example.ucp2.viewmodel.DetailKamarUiState
-import com.example.ucp2.viewmodel.EntryKamarViewModel
+import com.example.ucp2.viewmodel.DetailBukuUiState
+import com.example.ucp2.viewmodel.EntryBukuViewModel
 import com.example.ucp2.viewmodel.PenyediaViewModel
 import kotlinx.coroutines.launch
 
@@ -43,12 +43,12 @@ import kotlinx.coroutines.launch
 fun HalamanEntry(
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: EntryKamarViewModel = viewModel(factory = PenyediaViewModel.Factory)
+    viewModel: EntryBukuViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
     val coroutineScope = rememberCoroutineScope()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
-    val listTipeKamar by viewModel.listTipeKamar.collectAsState()
+    val listKategori by viewModel.listKategori.collectAsState()
 
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -62,15 +62,15 @@ fun HalamanEntry(
         }
     ) { innerPadding ->
         EntryBody(
-            uiStateKamar = viewModel.uiStateKamar,
-            onKamarValueChange = viewModel::updateUiState,
+            uiStateBuku = viewModel.uiStateBuku,
+            onBukuValueChange = viewModel::updateUiState,
             onSaveClick = {
                 coroutineScope.launch {
-                    viewModel.saveKamar()
+                    viewModel.saveBuku()
                     navigateBack()
                 }
             },
-            listTipeKamar = listTipeKamar,
+            listKategori = listKategori,
             modifier = Modifier
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
@@ -81,39 +81,39 @@ fun HalamanEntry(
 
 @Composable
 fun EntryBody(
-    uiStateKamar: DetailKamarUiState,
-    onKamarValueChange: (DetailKamarUiState) -> Unit,
+    uiStateBuku: DetailBukuUiState,
+    onBukuValueChange: (DetailBukuUiState) -> Unit,
     onSaveClick: () -> Unit,
-    listTipeKamar: List<TipeKamar>,
+    listKategori: List<Kategori>,
     modifier: Modifier = Modifier
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(20.dp),
         modifier = modifier.padding(16.dp)
     ) {
-        FormInputKamar(
-            detailKamar = uiStateKamar,
-            onValueChange = onKamarValueChange,
-            listTipeKamar = listTipeKamar,
+        FormInputBuku(
+            detailBuku = uiStateBuku,
+            onValueChange = onBukuValueChange,
+            listKategori = listKategori,
             modifier = Modifier.fillMaxWidth()
         )
         Button(
             onClick = onSaveClick,
-            enabled = uiStateKamar.nomorKamar.isNotBlank() && uiStateKamar.idTipe != 0,
+            enabled = uiStateBuku.nomorBuku.isNotBlank() && uiStateBuku.idKategori != 0,
             shape = MaterialTheme.shapes.small,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Simpan Data Kamar")
+            Text(text = "Simpan Data Buku")
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FormInputKamar(
-    detailKamar: DetailKamarUiState,
-    onValueChange: (DetailKamarUiState) -> Unit,
-    listTipeKamar: List<TipeKamar>,
+fun FormInputBuku(
+    detailBuku: DetailBukuUiState,
+    onValueChange: (DetailBukuUiState) -> Unit,
+    listKategori: List<Kategori>,
     modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -123,25 +123,24 @@ fun FormInputKamar(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         OutlinedTextField(
-            value = detailKamar.nomorKamar,
-            onValueChange = { onValueChange(detailKamar.copy(nomorKamar = it)) },
-            label = { Text("Nomor Kamar") },
+            value = detailBuku.nomorBuku,
+            onValueChange = { onValueChange(detailBuku.copy(nomorBuku = it)) },
+            label = { Text("Nomor Buku") },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
         )
         OutlinedTextField(
-            value = detailKamar.kapasitas,
-            onValueChange = { onValueChange(detailKamar.copy(kapasitas = it)) },
-            label = { Text("Kapasitas (Orang)") },
+            value = detailBuku.penulis,
+            onValueChange = { onValueChange(detailBuku.copy(penulis = it)) },
+            label = { Text("Penulis") },
             modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             singleLine = true
         )
         OutlinedTextField(
-            value = detailKamar.statusKamar,
-            onValueChange = { onValueChange(detailKamar.copy(statusKamar = it)) },
-            label = { Text("Status Kamar") },
-            placeholder = { Text("Contoh: Tersedia, Dibersihkan") },
+            value = detailBuku.statusBuku,
+            onValueChange = { onValueChange(detailBuku.copy(statusBuku = it)) },
+            label = { Text("Status Buku") },
+            placeholder = { Text("Contoh: Tersedia, Dipinjam") },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
         )
@@ -149,7 +148,7 @@ fun FormInputKamar(
         Divider(thickness = 1.dp, modifier = Modifier.padding(vertical = 8.dp))
 
         Text(
-            text = "Pilih Tipe Kamar",
+            text = "Pilih Tipe Buku",
             style = MaterialTheme.typography.titleMedium
         )
 
@@ -158,7 +157,7 @@ fun FormInputKamar(
             onExpandedChange = { expanded = !expanded }
         ) {
             OutlinedTextField(
-                value = detailKamar.namaTipeSelected.ifEmpty { "Pilih Tipe" },
+                value = detailBuku.namaKategoriSelected.ifEmpty { "Pilih Tipe" },
                 onValueChange = {},
                 readOnly = true,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
@@ -172,24 +171,24 @@ fun FormInputKamar(
                 expanded = expanded,
                 onDismissRequest = { expanded = false }
             ) {
-                if (listTipeKamar.isEmpty()) {
+                if (listKategori.isEmpty()) {
                     DropdownMenuItem(
-                        text = { Text("Belum ada Tipe Kamar. Tambah dulu!") },
+                        text = { Text("Belum ada Tipe Buku. Tambah dulu!") },
                         onClick = { expanded = false }
                     )
                 } else {
-                    listTipeKamar.forEach { tipe ->
+                    listKategori.forEach { tipe ->
                         DropdownMenuItem(
                             text = {
                                 Column {
-                                    Text(text = tipe.namaTipe, style = MaterialTheme.typography.bodyLarge)
+                                    Text(text = tipe.namaKategori, style = MaterialTheme.typography.bodyLarge)
                                     Text(text = tipe.deskripsi, style = MaterialTheme.typography.labelSmall)
                                 }
                             },
                             onClick = {
-                                onValueChange(detailKamar.copy(
-                                    idTipe = tipe.idTipe,
-                                    namaTipeSelected = tipe.namaTipe
+                                onValueChange(detailBuku.copy(
+                                    idKategori = tipe.idKategori,
+                                    namaKategoriSelected = tipe.namaKategori
                                 ))
                                 expanded = false
                             }
@@ -199,9 +198,9 @@ fun FormInputKamar(
             }
         }
 
-        if (detailKamar.idTipe == 0) {
+        if (detailBuku.idKategori == 0) {
             Text(
-                text = "*Wajib memilih tipe kamar",
+                text = "*Wajib memilih tipe buku",
                 color = MaterialTheme.colorScheme.error,
                 style = MaterialTheme.typography.labelSmall
             )

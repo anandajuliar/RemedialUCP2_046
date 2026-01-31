@@ -7,34 +7,34 @@ interface DestinasiNavigasi {
 
 object DestinasiHome : DestinasiNavigasi {
     override val route = "home"
-    override val titleRes = "Home Hotel"
+    override val titleRes = "Home Perpustakaan"
 }
 
 object DestinasiEntry : DestinasiNavigasi {
-    override val route = "entry_kamar"
-    override val titleRes = "Tambah Kamar"
+    override val route = "entry_buku"
+    override val titleRes = "Tambah Buku"
 }
 
 object DestinasiDetail : DestinasiNavigasi {
-    override val route = "detail_kamar"
-    override val titleRes = "Detail Kamar"
-    const val idKamar = "itemId"
-    val routeWithArgs = "$route/{$idKamar}"
+    override val route = "detail_buku"
+    override val titleRes = "Detail Buku"
+    const val idBuku = "itemId"
+    val routeWithArgs = "$route/{$idBuku}"
 }
 
 object DestinasiUpdate : DestinasiNavigasi {
-    override val route = "update_kamar"
-    override val titleRes = "Edit Kamar"
-    const val idKamar = "itemId"
-    val routeWithArgs = "$route/{$idKamar}"
+    override val route = "update_buku"
+    override val titleRes = "Edit Buku"
+    const val idBuku = "itemId"
+    val routeWithArgs = "$route/{$idBuku}"
 }
 
 object DestinasiEntryTipe : DestinasiNavigasi {
     override val route = "entry_tipe"
-    override val titleRes = "Tambah Tipe Kamar"
+    override val titleRes = "Tambah Kategori Buku"
 }
 
 object DestinasiListTipe : DestinasiNavigasi {
     override val route = "list_tipe"
-    override val titleRes = "Daftar Tipe"
+    override val titleRes = "Daftar Kategori"
 }
