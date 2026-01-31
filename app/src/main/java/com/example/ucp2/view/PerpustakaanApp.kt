@@ -12,7 +12,7 @@ import com.example.ucp2.view.route.DestinasiHome
 import com.example.ucp2.view.route.DestinasiListTipe
 
 @Composable
-fun HotelApp(navController: NavHostController = rememberNavController()) {
+fun PerpustakaanApp(navController: NavHostController = rememberNavController()) {
     HostNavigasi(navController = navController)
 }
 

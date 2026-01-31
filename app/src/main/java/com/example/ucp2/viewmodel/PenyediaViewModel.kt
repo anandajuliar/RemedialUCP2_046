@@ -11,17 +11,17 @@ object PenyediaViewModel {
 
         initializer {
             EntryBukuViewModel(
-                aplikasiHotel().container.repositoriPerpustakaan
+                aplikasiPerpustakaan().container.repositoriPerpustakaan
             )
         }
         initializer {
-            HomeViewModel(aplikasiHotel().container.repositoriPerpustakaan)
+            HomeViewModel(aplikasiPerpustakaan().container.repositoriPerpustakaan)
         }
         initializer {
-            EntryTipeViewModel(aplikasiHotel().container.repositoriPerpustakaan)
+            EntryTipeViewModel(aplikasiPerpustakaan().container.repositoriPerpustakaan)
         }
     }
 }
 
-fun CreationExtras.aplikasiHotel(): AplikasiPerpustakaan =
+fun CreationExtras.aplikasiPerpustakaan(): AplikasiPerpustakaan =
     (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as AplikasiPerpustakaan)

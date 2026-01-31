@@ -15,7 +15,7 @@ abstract class PerpustakaanDatabase : RoomDatabase() {
 
         fun getDatabase(context: Context): PerpustakaanDatabase {
             return Instance ?: synchronized(this) {
-                Room.databaseBuilder(context, PerpustakaanDatabase::class.java, "hotel_database")
+                Room.databaseBuilder(context, PerpustakaanDatabase::class.java, "perpustakaan_database")
                     .fallbackToDestructiveMigration()
                     .build()
                     .also { Instance = it }
